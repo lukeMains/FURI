@@ -1,0 +1,3 @@
+﻿  main.cpp
+c:\users\luke_\desktop\furi_spring\furi_spring\main.cpp(10): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  FURI_Spring.vcxproj -> C:\Users\luke_\Desktop\FURI_Spring\Debug\FURI_Spring.exe
