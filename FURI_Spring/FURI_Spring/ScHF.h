@@ -23,8 +23,7 @@ public:
 	vector<int> column_vector_subset;
 
 	//Constructor
-	ScHF(int N, int k, int v, int w, int t);
-	
+	ScHF(int N, int k, int v, int w, int t);	
 
 	//Methods
 	void printScHF();

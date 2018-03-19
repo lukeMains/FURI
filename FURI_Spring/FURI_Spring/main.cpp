@@ -1,3 +1,7 @@
+/*
+Author: Luke Mains
+*/
+
 #include "ScHF.h"
 #include <stdlib.h>
 #include <cstdio>
@@ -8,12 +12,11 @@ using namespace std;
 
 int main() {
 	srand(time(NULL)); //Seed for random number generation.
-	FILE *file = fopen("C:/Users/luke_/Desktop/FURI_Data/Data.csv", "w");
+	FILE *file = fopen("./FURI_Data/newData.csv", "w");
 	if (!file) {
 		perror("File opening failed");
 		return EXIT_FAILURE;
 	}
-
 
 	int N = 10;
 	int k = 20;
@@ -22,11 +25,53 @@ int main() {
 	int t = 5;
 	int scount = 0;
 	int hcount = 0;
-	
+
 	ScHF *hashFam;
+
+	fprintf(file, "N,k,v,w,t,Scattering Count,Trials\n");
+
+	//Rows
+	for (int b = 10; b < 15; b++) {
+		//Number of Symbols
+		for (int c = 2; c <= 5; c++) {
+			//Scattering parameter
+			for (int d = 1; d <= 3; d++) {
+				//Number of columns in a subset
+				for (int e = d + 1; e <= 5; e++) {
+					for (int i = 0; i < 200; i++) {
+						hashFam = new ScHF(b, c*d, c, d, e);
+						hashFam->isScattering(0, e);
+						if (hashFam->scattering) {
+							scount++;
+						}
+					}
+					printf("Size: %d by %d. Correct: %d\n", N, k, scount);
+					fprintf(file, "%d,%d,%d,%d,%d,%d,%d\n", b, c*d, c, d, e, scount, 200);
+					scount = 0;
+				}
+			}
+		}
+	}
 	
-	fprintf(file,"N,k,v,w,t,Scattering Count,Trials\n");
-	/*
+
+	fclose(file);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	/* Old Runs
 	//-------Scattering Data-----------
 	//Columns
 	//for (int a = 20; a < 25; a++) {
@@ -56,7 +101,7 @@ int main() {
 		//}
 	//}
 	//-------End Scattering Data-----------
-	*/
+	
 
 	//-------Homogeneous Data--------------
 	//Columns
@@ -86,8 +131,8 @@ int main() {
 			//}
 		}
 	}
-	//-------End Homogeneous Data----------
-	fclose(file);
+	//-------End Homogeneous Data---------- */
+	
 	
 
 
@@ -136,4 +181,3 @@ int main() {
 	}*/
 
 	//-------------------------------------------------------------------------
-}
