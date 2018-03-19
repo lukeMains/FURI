@@ -5,22 +5,19 @@
 
 
 //Generates a random ScHF each time
-ScHF::ScHF(int N, int k, int v, int w, int t){
+ScHF::ScHF(int N, int k, int v, int w, int t) {
 	this->N = N;
 	this->k = k;
 	this->v = v;
 	this->w = w;
 	this->t = t;
-	
+
 	this->scattering = true;
 
 	//Setup Column Vector
 	for (int i = 0; i < k; ++i) {
 		column_vector.push_back(i);
 	}
-
-	
-	//Use this code if just building random arrays
 
 	//Allocate space for Array
 	Array = (int **)malloc(N * sizeof(int *));
@@ -33,36 +30,9 @@ ScHF::ScHF(int N, int k, int v, int w, int t){
 		for (int j = 0; j < k; j++) {
 			int value = rand() % v;
 			Array[i][j] = value;
+			value++;
 		}
 	}
-	
-	
-	/*
-	//Use this code when building homogeneous array row by row.
-	int* symbolSet = (int*)malloc(v * sizeof(int));
-	
-
-	Array = (int **)malloc(N * sizeof(int *));
-	for (int i = 0; i < N; i++) {
-		Array[i] = (int *)malloc(k * sizeof(int));
-
-		for (int l = 0; l < v; l++) {
-			symbolSet[l] = w; //Populate the amount of each symbol in the set.
-		}
-
-		//Build a row, check homogeneous, repeat.
-		for (int j = 0; j < k; j++) {
-			int value = rand() % v;
-			while (symbolSet[value] == 0) {
-				value = rand() % v;
-			}
-
-			Array[i][j] = value;
-
-			symbolSet[value]--;
-		}
-	}
-	*/
 }
 
 void ScHF::printScHF() {
@@ -98,7 +68,7 @@ bool ScHF::isHomogeneous() {
 			if (symbol_count != k / v) {
 				homogeneous = false;
 			}
-			
+
 			vPrime++;
 			symbol_count = 0;
 		}
@@ -126,7 +96,7 @@ void ScHF::isScattering(int offset, int k) {
 
 bool ScHF::checkSubArray(vector<int> column_vector_subset) {
 	bool output = false;
-	
+
 	for (int row = 0; row < N; row++) {
 		int count = 0;					//Will keep track of the count of a certain symbol to compare to w.
 		int vPrime = 0;					//vPrime is a symbol in set V
@@ -162,26 +132,26 @@ bool ScHF::checkSubArray(vector<int> column_vector_subset) {
 
 	//Be able to check which subset of columns cause problems.
 	/*if(output == false){
-		cout << "Columns: " << ": [ ";
-		for (int i = 0; i < column_vector_subset.size(); i++) {
-			cout << column_vector_subset[i] << " ";
-		}
-		cout << "]" << endl;
-		
-		//Print the sub-array causing problems.
-		cout << "\t[";
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < column_vector_subset.size(); j++) {
-				cout << Array[i][column_vector_subset[j]] << " ";
-			}
+	cout << "Columns: " << ": [ ";
+	for (int i = 0; i < column_vector_subset.size(); i++) {
+	cout << column_vector_subset[i] << " ";
+	}
+	cout << "]" << endl;
 
-			if (i == N - 1) {
-				cout << "]\n\n";
-			}
-			else {
-				cout << "| \n\t|";
-			}
-		}
+	//Print the sub-array causing problems.
+	cout << "\t[";
+	for (int i = 0; i < N; i++) {
+	for (int j = 0; j < column_vector_subset.size(); j++) {
+	cout << Array[i][column_vector_subset[j]] << " ";
+	}
+
+	if (i == N - 1) {
+	cout << "]\n\n";
+	}
+	else {
+	cout << "| \n\t|";
+	}
+	}
 	}*/
 
 	return output;
