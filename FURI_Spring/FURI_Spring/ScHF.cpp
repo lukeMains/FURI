@@ -19,8 +19,8 @@ ScHF::ScHF(int N, int k, int v, int w, int t){
 		column_vector.push_back(i);
 	}
 
-	/*
-	Use this code if just building random arrays
+	
+	//Use this code if just building random arrays
 
 	//Allocate space for Array
 	Array = (int **)malloc(N * sizeof(int *));
@@ -35,8 +35,9 @@ ScHF::ScHF(int N, int k, int v, int w, int t){
 			Array[i][j] = value;
 		}
 	}
-	*/
-
+	
+	
+	/*
 	//Use this code when building homogeneous array row by row.
 	int* symbolSet = (int*)malloc(v * sizeof(int));
 	
@@ -61,6 +62,7 @@ ScHF::ScHF(int N, int k, int v, int w, int t){
 			symbolSet[value]--;
 		}
 	}
+	*/
 }
 
 void ScHF::printScHF() {
