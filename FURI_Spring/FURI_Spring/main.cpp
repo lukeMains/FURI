@@ -18,11 +18,6 @@ int main() {
 		return EXIT_FAILURE;
 	}
 
-	int N = 10;
-	int k = 20;
-	int v = 4;
-	int w = 2;
-	int t = 5;
 	int scount = 0;
 	int hcount = 0;
 
@@ -33,11 +28,11 @@ int main() {
 	//Rows
 	for (int b = 10; b < 15; b++) {
 		//Number of Symbols
-		for (int c = 2; c <= 5; c++) {
+		for (int c = 2; c <= 7; c++) {
 			//Scattering parameter
 			for (int d = 1; d <= 3; d++) {
 				//Number of columns in a subset
-				for (int e = d + 1; e <= 5; e++) {
+				for (int e = d + 1; e <= c*d && e <= 5; e++) {
 					for (int i = 0; i < 200; i++) {
 						hashFam = new ScHF(b, c*d, c, d, e);
 						hashFam->isScattering(0, e);
@@ -45,7 +40,7 @@ int main() {
 							scount++;
 						}
 					}
-					printf("Size: %d by %d. Correct: %d\n", N, k, scount);
+					printf("Size: %d by %d. Correct: %d\n", b, c*d, scount);
 					fprintf(file, "%d,%d,%d,%d,%d,%d,%d\n", b, c*d, c, d, e, scount, 200);
 					scount = 0;
 				}
