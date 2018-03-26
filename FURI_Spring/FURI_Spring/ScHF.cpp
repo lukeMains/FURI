@@ -39,26 +39,34 @@ ScHF::ScHF(int N, int k, int v, int w, int t) {
 	
 	//Use this code when building homogeneous array row by row.
 	int* symbolSet = (int*)malloc(v * sizeof(int));
-
+	int lowerBound = floor((double)k / v);
+	int upperBound = ceil((double)k / v);
 
 	Array = (int **)malloc(N * sizeof(int *));
 	for (int i = 0; i < N; i++) {
 		Array[i] = (int *)malloc(k * sizeof(int));
 
 		for (int l = 0; l < v; l++) {
-			symbolSet[l] = w; //Populate the amount of each symbol in the set.
+			symbolSet[l] = 0; //Start at 0 and count up to the bound values
 		}
 
 		//Build a row, check homogeneous, repeat.
 		for (int j = 0; j < k; j++) {
 			int value = rand() % v;
-			while (symbolSet[value] == 0) {
+
+			for (int max_loops = 0; symbolSet[value] >= lowerBound && max_loops < 200; max_loops++) {
 				value = rand() % v;
+			}
+
+			for (int count = 0; count < v - 1; count++) {
+				if (symbolSet[value] + 1 > upperBound) {
+					value = (value + 1) % v;
+				}
 			}
 
 			Array[i][j] = value;
 
-			symbolSet[value]--;
+			symbolSet[value]++;
 		}
 	}
 	
@@ -82,6 +90,8 @@ void ScHF::printScHF() {
 
 bool ScHF::isHomogeneous() {
 	bool homogeneous = true;
+	int lowerBound = floor((double)k / v);
+	int upperBound = ceil((double)k / v);
 
 	for (int row = 0; row < N; row++) {
 		int symbol_count = 0;	//Will keep track of the count of a certain symbol to compare to w.
@@ -94,7 +104,7 @@ bool ScHF::isHomogeneous() {
 				}
 			}
 
-			if (symbol_count != k / v) {
+			if (symbol_count <  lowerBound || symbol_count > upperBound) {
 				homogeneous = false;
 			}
 

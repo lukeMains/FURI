@@ -1,3 +1,4 @@
 ﻿  main.cpp
 c:\users\luke_\documents\github\furi\furi_spring\furi_spring\main.cpp(14): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
   FURI_Spring.vcxproj -> C:\Users\luke_\Documents\GitHub\FURI\FURI_Spring\Debug\FURI_Spring.exe

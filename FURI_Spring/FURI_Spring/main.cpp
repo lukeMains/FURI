@@ -24,30 +24,43 @@ int main() {
 	ScHF *hashFam;
 
 	fprintf(file, "N,k,v,w,t,Scattering Count,Trials\n");
-
 	//Rows
-	for (int b = 10; b < 15; b++) {
-		//Number of Symbols
-		for (int c = 2; c <= 7; c++) {
-			//Scattering parameter
-			for (int d = 1; d <= 3; d++) {
-				//Number of columns in a subset
-				for (int e = d + 1; e <= c*d && e <= 5; e++) {
-					for (int i = 0; i < 200; i++) {
-						hashFam = new ScHF(b, c*d, c, d, e);
-						hashFam->isScattering(0, e);
-						if (hashFam->scattering) {
-							scount++;
+	for (int a = 4; a <= 8; a++) {
+		//Columns
+		for (int b = 21; b <= 25; b++) {
+			//Number of Symbols
+			for (int c = 3; c <= 5; c++) {
+				//Scattering parameter
+				//for (int d = 1; d <= 2; d++) {
+				int d = 2;
+					//Number of columns in a subset
+					for (int e = 3; e <= 4; e++) {
+						for (int i = 0; i < 200; i++) {
+							hashFam = new ScHF(a, b, c, d, e);
+							hashFam->isScattering(0, e);
+							if (hashFam->scattering) {
+								scount++;
+							}
 						}
+						printf("Size: %d by %d. Correct: %d\n", a, b, scount);
+						fprintf(file, "%d,%d,%d,%d,%d,%d,%d\n", a, b, c, d, e, scount, 200);
+						scount = 0;
 					}
-					printf("Size: %d by %d. Correct: %d\n", b, c*d, scount);
-					fprintf(file, "%d,%d,%d,%d,%d,%d,%d\n", b, c*d, c, d, e, scount, 200);
-					scount = 0;
-				}
+				//}
 			}
 		}
 	}
 	
+	/*Check new constructor function creating homogenous arrays
+	int count = 0;
+	for (int i = 0; i < 10000; i++) {
+		hashFam = new ScHF((rand() % 20) + 5, (rand() % 20) + 5, rand() % 5 + 2, 1, 1);
+		if (hashFam->isHomogeneous()) {
+			count++;
+		}
+	}
+
+	printf("Count: %d\n\n", count);*/
 
 	fclose(file);
 
